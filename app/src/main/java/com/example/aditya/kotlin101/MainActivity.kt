@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         //correct way
         val jsonOBJ=JSONObject(json.substring(json.indexOf("{"),json.lastIndexOf("}")+1))
         println(jsonOBJ)
-        var ar=jsonOBJ.getJSONArray("content")
+        var ar=jsonOBJ.getJSONArray("title")
         println(ar)
         /*ar=jsonOBJ.getJSONArray("title")
         println(ar)*/
