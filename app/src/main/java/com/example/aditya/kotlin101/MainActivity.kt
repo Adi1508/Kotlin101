@@ -2,29 +2,17 @@ package com.example.aditya.kotlin101
 
 import android.app.ProgressDialog
 import android.os.AsyncTask
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.ListView
-import android.widget.ProgressBar
-import com.beust.klaxon.Parser
-import com.github.salomonbrys.kotson.string
-import com.github.salomonbrys.kotson.toJson
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import com.squareup.moshi.Moshi
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.DefaultHttpClient
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
 import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
 import java.util.*
-import kotlin.collections.HashMap
 
 
 @Suppress("DEPRECATION")
@@ -93,37 +81,33 @@ class MainActivity : AppCompatActivity() {
 
         println("LINE 88 "+json)
 
-        val gson= Gson()
-        /**/
-        val j=gson.toJson(json)
-        println(j)
-        val parser: Parser = Parser()
-        val stringBuilder: StringBuilder = StringBuilder(j)
-        val js: JsonObject = parser.parse(stringBuilder) as JsonObject
-        println("ID: ${js.get("id")}")
+        //correct way
+        val jsonOBJ=JSONObject(json.substring(json.indexOf("{"),json.lastIndexOf("}")+1))
+        println(jsonOBJ)
+        var ar=jsonOBJ.getJSONArray("content")
+        println(ar)
+        /*ar=jsonOBJ.getJSONArray("title")
+        println(ar)*/
+        /*var ta=jsonOBJ.getJSONArray("title")
+        println(ta)*/
 
-        //Moshi library usage
-        /*val moshi=Moshi.Builder().build()
-        val jsonAdapter=moshi.adapter<Array<Product>>(Array<Product>::class.java)
-        var products:Array<Product>?= null
-        mylist=ArrayList<String>()
-
-        try{
-            products=jsonAdapter.fromJson(j)
-        }catch(e:Exception){
-            e.printStackTrace()
+        for(i in 0..jsonOBJ.length()-1){
+            val urlJSON=jsonOBJ.getJSONObject("title")
+            println(urlJSON)
+            val urljson=urlJSON.get("rendered");
+            println(urljson)
         }
 
-        for(p in products!!){
+        /*for(p in products!!){
             println(p.id +" "+ p.title)
             mylist.add("ID: "+p.id+"\n"+"Title: "+p.title)
         }*/
-        list= ArrayList(Arrays.asList(*products))
-        setupListView()
+        /*list= ArrayList(Arrays.asList(*products))
+        setupListView()*/
     }
 
-    fun setupListView(){
+    /*fun setupListView(){
         listview=findViewById<ListView>(R.id.list_view) as ListView
         listview.adapter=ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mylist)
-    }
+    }*/
 }
