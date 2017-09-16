@@ -25,7 +25,9 @@ public open class MainActivity : AppCompatActivity() {
     internal var json = ""
     internal lateinit var listview: ListView
     lateinit var postContent:Array<String?>
-    open lateinit var postTitle:Array<String?>
+    open var postTitle:Array<String?> = arrayOf("One", "Two", "Three", "Four", "Five", "Six", "Seven",
+            "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen")
+
     lateinit var mapPost:Map<String, Any>
     lateinit var mapContent:Map<String, Any>
     lateinit var mapTitle:Map<String, Any>
@@ -35,13 +37,9 @@ public open class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //listview=findViewById<ListView>(R.id.list_view) as ListView
-
         findViewById<Button>(R.id.button).setOnClickListener() {
             val obj = "http://ymca.dreamhosters.com/wp-json/wp/v2/posts?filter[posts_per_page]=10&fields=id,title&filter[category_name]=all"
             fetchJson(obj)
-
-            //Toast.makeText(this, obj, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -76,7 +74,6 @@ public open class MainActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
             }
-            //response=urlString[0]
             println(response)
             return response
         }
@@ -105,9 +102,8 @@ public open class MainActivity : AppCompatActivity() {
             println(postTitle[i])
         }
 
-        //listview.adapter= ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,postTitle)
         ProgressDialog(this).dismiss()
-        val intent = Intent(this,ListViewActivity::class.java)
+        val intent = Intent(this,ListViewActivity()::class.java)
         startActivity(intent)
     }
 
@@ -119,7 +115,6 @@ public open class MainActivity : AppCompatActivity() {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
             finish()
-            //super.onBackPressed();
             System.exit(0)
             return
         }
