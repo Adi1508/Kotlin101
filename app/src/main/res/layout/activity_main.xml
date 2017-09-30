@@ -14,20 +14,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter the json link"
-                android:id="@+id/editText"
-                android:layout_toStartOf="@+id/button" />
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CLick"
-                android:layout_alignBaseline="@+id/editText"
-                android:layout_alignBottom="@+id/editText"
-                android:layout_alignParentEnd="true"
                 android:id="@+id/button" />
 
         </RelativeLayout>

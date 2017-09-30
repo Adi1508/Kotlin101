@@ -52,9 +52,9 @@ public open class MainActivity : AppCompatActivity() {
 
         override fun onPreExecute() {
             super.onPreExecute()
-            ProgressDialog(this@MainActivity).setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            /*ProgressDialog(this@MainActivity).setProgressStyle(ProgressDialog.STYLE_SPINNER)
             ProgressDialog(this@MainActivity).setMessage("Loading...")
-            ProgressDialog(this@MainActivity).show()
+            ProgressDialog(this@MainActivity).show()*/
         }
 
         override fun doInBackground(vararg urlString: String): String {
@@ -104,7 +104,13 @@ public open class MainActivity : AppCompatActivity() {
         }
         val lv=findViewById<ListView>(R.id.list_view)
         lv.adapter= MainActivity.ListExampleAdapter(this, postTitle)
-        ProgressDialog(this@MainActivity).dismiss()
+        /*val delayInMillis: Long = 5000
+        val timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                ProgressDialog(this@MainActivity).dismiss()
+            }
+        }, delayInMillis)*/
     }
 
     override fun onBackPressed() {
