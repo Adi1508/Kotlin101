@@ -1,3 +1,4 @@
+/*
 package com.example.aditya.kotlin101
 
 import android.content.Context
@@ -12,9 +13,11 @@ import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
 
+*/
 /**
  * Created by aditya on 16/9/17.
- */
+ *//*
+
 public class ListViewActivity() : MainActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +25,7 @@ public class ListViewActivity() : MainActivity(){
         setContentView(R.layout.activity_list_view)
 
         val lv=findViewById<ListView>(R.id.list_view)
-        println(postTitle)
-        lv.adapter=ListExampleAdapter(this, postTitle)
+        lv.adapter=ListExampleAdapter(this, obj.postTitle)
     }
 
     private class ListExampleAdapter(context: Context, data: Array<String?>) : BaseAdapter() {
@@ -77,4 +79,4 @@ public class ListViewActivity() : MainActivity(){
         startActivity(intent)
         finish()
     }
-}
+}*/

@@ -1,14 +1,15 @@
 package com.example.aditya.kotlin101
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
 import com.google.gson.Gson
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.DefaultHttpClient
@@ -25,7 +26,7 @@ public open class MainActivity : AppCompatActivity() {
     internal var json = ""
     internal lateinit var listview: ListView
     lateinit var postContent:Array<String?>
-    open var postTitle:Array<String?> = arrayOf("One", "Two", "Three", "Four", "Five", "Six", "Seven",
+    var postTitle:Array<String?> = arrayOf("One", "Two", "Three", "Four", "Five", "Six", "Seven",
             "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen")
 
     lateinit var mapPost:Map<String, Any>
@@ -101,10 +102,9 @@ public open class MainActivity : AppCompatActivity() {
             postContent[i]= mapContent.get("rendered") as String
             println(postTitle[i])
         }
-
-        ProgressDialog(this).dismiss()
-        val intent = Intent(this,ListViewActivity()::class.java)
-        startActivity(intent)
+        val lv=findViewById<ListView>(R.id.list_view)
+        lv.adapter= MainActivity.ListExampleAdapter(this, postTitle)
+        ProgressDialog(this@MainActivity).dismiss()
     }
 
     override fun onBackPressed() {
@@ -120,5 +120,51 @@ public open class MainActivity : AppCompatActivity() {
         }
         this.doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+    }
+
+    private class ListExampleAdapter(context: Context, data: Array<String?>) : BaseAdapter() {
+        internal var sList = data
+
+        private val mInflator: LayoutInflater
+
+        init {
+            this.mInflator = LayoutInflater.from(context)
+        }
+
+        override fun getCount(): Int {
+            return sList.size
+        }
+
+        override fun getItem(position: Int): String? {
+            return sList[position]
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
+            val view: View?
+            val vh: ListRowHolder
+            if (convertView == null) {
+                view = this.mInflator.inflate(R.layout.list_row, parent, false)
+                vh = ListRowHolder(view)
+                view.tag = vh
+            } else {
+                view = convertView
+                vh = view.tag as ListRowHolder
+            }
+
+            vh.label.text = sList[position]
+            return view
+        }
+    }
+
+    private class ListRowHolder(row: View?) {
+        public val label: TextView
+
+        init {
+            this.label = row?.findViewById<TextView>(R.id.label) as TextView
+        }
     }
 }
